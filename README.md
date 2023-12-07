@@ -1,2 +1,3 @@
 # perfect-heal-clinic
-A doctor scheduling app
+
+A doctor appointment booking application built on mern stack.
