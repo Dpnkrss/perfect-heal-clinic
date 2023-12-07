@@ -31,7 +31,22 @@ const Header = () => {
           </div>
 
           <div className='navigation'>
-            <ul className='menu flex items-center gap-[2.7rem]'></ul>
+            <ul className='menu flex items-center gap-[2.7rem]'>
+              {navLinks.map((link, index) => (
+                <li key={index}>
+                  <NavLink
+                    to={link.path}
+                    className={(navClass) =>
+                      navClass.isActive
+                        ? 'text-primaryColor text-[16px] leading-7 font-[600]'
+                        : 'text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor'
+                    }
+                  >
+                    {link.display}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
