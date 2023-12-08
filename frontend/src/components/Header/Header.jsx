@@ -26,10 +26,10 @@ const Header = () => {
   return (
     <header className='header flex items-center px-5'>
       <div className='container'>
-        <div className='flex items-center justify-between m-4 '>
+        <div className='flex items-center justify-between m-4 w-[auto] '>
           {/*.....logo........*/}
           <div>
-            <img src={logo} alt='Perfect heal' />
+            <img src={logo} alt='Perfect heal' className='w-60 h-15' />
           </div>
           {/*.....Navigabar........*/}
           <div className='navigation'>
@@ -40,8 +40,8 @@ const Header = () => {
                     to={link.path}
                     className={(navClass) =>
                       navClass.isActive
-                        ? 'text-primaryColor text-[16px] leading-7 font-[600]'
-                        : 'text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor'
+                        ? 'text-primaryColor text-[15px] leading-7 font-[600]'
+                        : 'text-textColor text-[15px] leading-7 font-[500] hover:text-primaryColor'
                     }
                   >
                     {link.display}
@@ -52,7 +52,7 @@ const Header = () => {
           </div>
 
           {/*....nav right......*/}
-          <div className='inline-flex'>
+          <div className='inline-flex  gap-4'>
             <Link to='/'>
               <figure className='w-[50px] h-[50px] rounded-full'>
                 <img
