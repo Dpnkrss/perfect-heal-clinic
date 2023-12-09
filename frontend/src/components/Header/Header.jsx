@@ -76,7 +76,7 @@ const Header = () => {
                   {link.path === '/treatment' && showTreatmentsDropdown && (
                     <div className='absolute top-full left-0 mt-2 dropdown-content'>
                       {/* Add dropdown content for Treatments */}
-                      {/* Example: */}
+
                       <ul>
                         <li>
                           <NavLink to='/treatment/type1'>Type 1</NavLink>
@@ -91,7 +91,7 @@ const Header = () => {
                   {link.path === '/facilities' && showFacilitiesDropdown && (
                     <div className='absolute top-full left-0 mt-2  dropdown-content'>
                       {/* Add dropdown content for Facilities */}
-                      {/* Example: */}
+
                       <ul>
                         <li>
                           <NavLink to='/facilities/facility1'>
