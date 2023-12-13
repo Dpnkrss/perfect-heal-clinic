@@ -30,6 +30,7 @@ const SportInjuries = () => {
         challenging, but with the right care and support, it’s possible to lead
         a fulfilling and active life.
       </p>
+      <h1>Orthopaedics</h1>
     </>
   );
 };
