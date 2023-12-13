@@ -22,6 +22,7 @@ const InternalMedicine = () => {
         disorders Hypertension Dyspepsia Hepatitis Diabetes Migraine Urinary
         tract infections
       </p>
+      <h1> Internal Medicine Diagnosis</h1>
     </>
   );
 };
