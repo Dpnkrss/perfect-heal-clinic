@@ -6,6 +6,8 @@ import Signup from "../pages/Signup";
 import Contact from "../pages/Contact";
 import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
+import SportInjuries from "../pages/SportInjuries";
+import InternalMedicine from "../pages/InternalMedicine";
 const Routers = () => {
   return (
     <Routes>
@@ -17,6 +19,8 @@ const Routers = () => {
       <Route path="/contact" element={<Contact />} />
       <Route path="/doctors" element={<Doctors />} />
       <Route path="/doctor-details" element={<DoctorDetails />} />
+      <Route path="/orthopaedics-sports-injuries" element={<SportInjuries />} />
+      <Route path="/internal-medicine" element={<InternalMedicine />} />
     </Routes>
   );
 };
