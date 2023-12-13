@@ -2,7 +2,7 @@ const InternalMedicine = () => {
   return (
     <>
       <p>
-        Internal Medicine is a branch of medicine that deals with the diagnosis,
+        Internal Medicine is a branch of medicine that deals with diagnosis,
         treatment, and primary care for all common and rare diseases that
         generally affect the adult population. We deliver effective treatments
         for common and rare diseases and guide individuals through the process
