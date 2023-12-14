@@ -35,9 +35,19 @@ const Header = () => {
     setShowFacilitiesDropdown(true);
   };
 
-  const handleMouseLeave = () => {
+  const handleCloseDropdown = () => {
     setShowTreatmentsDropdown(false);
     setShowFacilitiesDropdown(false);
+  };
+
+  const treatmentSubMenu = {
+    'Orthopaedics and Sports Injuries': [
+      { name: 'Arthroscopy', path: '/treatment/arthroscopy' },
+      { name: 'Sports injuries', path: '/treatment/sports-injuries' },
+      { name: 'Bone fractures', path: '/treatment/bone-fractures' },
+      { name: 'Rheumatoid arthritis', path: '/treatment/rheumatoid-arthritis' },
+      { name: 'Hip and Knee Joint Replacement', path: '/treatment/hip-knee' },
+    ],
   };
 
   return (
@@ -60,7 +70,6 @@ const Header = () => {
                     else if (link.path === '/facilities')
                       handleFacilitiesHover();
                   }}
-                  onMouseLeave={handleMouseLeave}
                 >
                   <NavLink
                     to={link.path}
@@ -72,39 +81,42 @@ const Header = () => {
                   >
                     {link.display}
                   </NavLink>
-                  {/* Treatments Dropdown */}
-                  {link.path === '/treatment' && showTreatmentsDropdown && (
-                    <div className='absolute top-full left-0 mt-2 dropdown-content'>
-                      {/* Add dropdown content for Treatments */}
 
-                      <ul>
-                        <li>
-                          <NavLink to='/treatment/type1'>Type 1</NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/treatment/type2'>Type 2</NavLink>
-                        </li>
-                      </ul>
-                    </div>
+                  {/* Treatments Dropdown*/}
+                  {link.path === '/treatment' && showTreatmentsDropdown && (
+                    <ul
+                      className='absolute left-0 w-screen mt-1 border-b border-gray-200 z-20 bg-white'
+                      onMouseLeave={handleCloseDropdown}
+                    >
+                      <li className='dropdown'>
+                        <span className='text-left text-orange-500 text-[16px] leading-7 font-[600]'>
+                          Orthopaedics and Sports Injuries
+                        </span>
+                        <div className='dropdown-content m-2 '>
+                          {treatmentSubMenu[
+                            'Orthopaedics and Sports Injuries'
+                          ].map((item) => (
+                            <a key={item.path} href={item.path}>
+                              {item.name + ' '}
+                            </a>
+                          ))}
+                        </div>
+                      </li>
+                    </ul>
                   )}
                   {/* Facilities Dropdown */}
                   {link.path === '/facilities' && showFacilitiesDropdown && (
-                    <div className='absolute top-full left-0 mt-2  dropdown-content'>
-                      {/* Add dropdown content for Facilities */}
-
-                      <ul>
-                        <li>
-                          <NavLink to='/facilities/facility1'>
-                            Facility 1
-                          </NavLink>
-                        </li>
-                        <li>
-                          <NavLink to='/facilities/facility2'>
-                            Facility 2
-                          </NavLink>
-                        </li>
-                      </ul>
-                    </div>
+                    <ul
+                      className='absolute top-3 left-0 w-10rem mt-2 dropdown-content'
+                      onMouseLeave={handleCloseDropdown}
+                    >
+                      <li>
+                        <NavLink to='/facilities/facility1'>Facility 1</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to='/facilities/facility2'>Facility 2</NavLink>
+                      </li>
+                    </ul>
                   )}
                 </li>
               ))}
