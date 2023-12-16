@@ -48,12 +48,26 @@ const Header = () => {
       { name: 'Rheumatoid arthritis', path: '/treatment/rheumatoid-arthritis' },
       { name: 'Hip and Knee Joint Replacement', path: '/treatment/hip-knee' },
     ],
+
+    'Internal Medicine': [
+      { name: 'Fever', path: '/treatment/fever' },
+      { name: 'COPD', path: '/treatment/copd' },
+      { name: 'Hypertension', path: '/treatment/hypertension' },
+      { name: 'Diabetes', path: '/treatment/diabetes' },
+      { name: 'Chronic cough', path: '/treatment/cough' },
+      { name: 'Tuberculosis', path: '/treatment/tuberculosis' },
+      { name: 'Dyspepsia', path: '/treatment/dyspepsia' },
+      { name: 'Migrain', path: '/treatment/migraine' },
+      { name: 'Asthma', path: '/treatment/asthma' },
+      { name: 'Thyroid disorders', path: '/treatment/thyroid' },
+      { name: 'Hepatitis', path: '/treatment/hepatitis' },
+    ],
   };
 
   return (
     <header className='header flex items-center'>
       <div className='container'>
-        <div className='flex items-center justify-between m-4 px-10zzz'>
+        <div className='flex items-center justify-between m-4 px-10'>
           {/*.....logo........*/}
           <div>
             <img src={logo} alt='Perfect heal' />
@@ -84,25 +98,47 @@ const Header = () => {
 
                   {/* Treatments Dropdown*/}
                   {link.path === '/treatment' && showTreatmentsDropdown && (
-                    <ul
-                      className='absolute left-0 w-screen mt-1 border-b border-gray-200 z-20 bg-white'
-                      onMouseLeave={handleCloseDropdown}
-                    >
-                      <li className='dropdown'>
+                    <div className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'>
+                      <ul
+                        className='py-4 px-4'
+                        onMouseLeave={handleCloseDropdown}
+                      >
                         <span className='text-left text-orange-500 text-[16px] leading-7 font-[600]'>
                           Orthopaedics and Sports Injuries
                         </span>
-                        <div className='dropdown-content m-2 '>
-                          {treatmentSubMenu[
-                            'Orthopaedics and Sports Injuries'
-                          ].map((item) => (
-                            <a key={item.path} href={item.path}>
-                              {item.name + ' '}
-                            </a>
-                          ))}
-                        </div>
-                      </li>
-                    </ul>
+                        <li className='dropdown'>
+                          <div className='dropdown-content flex m-1 py-4 arangment w-[72rem] grid grid-cols-4 gap-6'>
+                            {treatmentSubMenu[
+                              'Orthopaedics and Sports Injuries'
+                            ].map((item) => (
+                              <a
+                                className='border-b'
+                                key={item.path}
+                                href={item.path}
+                              >
+                                {item.name + ' '}
+                              </a>
+                            ))}
+                          </div>
+                          <span className='text-left text-orange-500 text-[16px] leading-7 font-[600] py-2'>
+                            Internal Medicine
+                          </span>
+                          <div className='dropdown-content flex m-1 py-4 arangment w-[72rem] grid grid-cols-4 gap-6 border-b'>
+                            {treatmentSubMenu['Internal Medicine'].map(
+                              (item) => (
+                                <a
+                                  className='border-b'
+                                  key={item.path}
+                                  href={item.path}
+                                >
+                                  {item.name + ' '}
+                                </a>
+                              )
+                            )}
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
                   )}
                   {/* Facilities Dropdown */}
                   {link.path === '/facilities' && showFacilitiesDropdown && (
