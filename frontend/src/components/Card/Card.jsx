@@ -5,10 +5,10 @@ const Card = ({ title, content, linkTo, topImg, bottomImg }) => {
   const bgColorClass =
     title === 'Internal Medicine' ? 'bg-[#F15A2D]' : 'bg-slate-300';
   const isInternalMedicine = title === 'Internal Medicine';
-  const textColorClass = title ? 'text-white' : 'text-black-300';
-  const titleColorClass = isInternalMedicine ? 'text-white' : 'text-black';
-  const linkTextColorClass = title ? 'text-white' : 'text-orange-500';
-  const linkBgColorClass = title ? 'bg-[#F15A2D]' : 'bg-slate-300';
+  const linkTextColorClass = isInternalMedicine
+    ? 'text-white'
+    : 'text-orange-600';
+  const linkBgColorClass = isInternalMedicine ? 'bg-[#F15A2D]' : 'bg-slate-300';
   console.log(title);
   return (
     <div
@@ -29,9 +29,7 @@ const Card = ({ title, content, linkTo, topImg, bottomImg }) => {
         </h2>
       </div>
       <div
-        className={`mb-5 ${textColorClass} ${
-          isInternalMedicine ? 'text-white' : 'text-black'
-        } `}
+        className={`mb-5 ${isInternalMedicine ? 'text-white' : 'text-black'} `}
       >
         {content}
       </div>
