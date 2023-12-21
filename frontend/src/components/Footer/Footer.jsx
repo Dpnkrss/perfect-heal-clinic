@@ -6,8 +6,13 @@ import callIcon from '../../assets/footer/phone.svg';
 
 const Footer = () => {
   return (
-    <footer className='bg-[#CF2234] text-white text-center p-4 h-[650px] '>
-      <div className='max-w-screen-xl mx-auto px-4 md:mt-8'>
+    <footer
+      className='bg-[#CF2234] text-white  text-center p-4 h-[650px] '
+      style={{
+        background: 'linear-gradient(to bottom, #F15A2D, #CF2234)',
+      }}
+    >
+      <div className='max-w-screen-2xl mx-auto md:mt-8'>
         <img src={logo} alt='Perfect Heal Logo' className='mx-auto h-[100px]' />
 
         {/*ouick link*/}
@@ -33,7 +38,7 @@ const Footer = () => {
         </div>
         {/*cards*/}
 
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x divide-black md:divide-x-0 md:mt-10 rounded-lg overflow-hidden shadow-md'>
+        <div className='grid grid-cols-1 md:grid-cols-3 divide-x divide-black md:divide-x-0 md:mt-10 rounded-lg h-[250px] overflow-hidden shadow-md'>
           <div className='bg-white p-14 shadow-md flex flex-col items-center'>
             <img src={mailIcon} className='w-12 h-12' alt='Mail Icon' />
             <h4 className='font-bold text-red-600'>Mail</h4>
