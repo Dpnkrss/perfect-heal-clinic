@@ -25,19 +25,62 @@ const navLinks = [
 const Header = () => {
   // State to track the visibility of dropdowns
   const [showTreatmentsDropdown, setShowTreatmentsDropdown] = useState(false);
-  const [showFacilitiesDropdown, setShowFacilitiesDropdown] = useState(false);
+  const [isMouseOverTreatmentsMenu, setIsMouseOverTreatmentsMenu] =
+    useState(false);
+  const [isMouseOverTreatmentsDropdown, setIsMouseOverTreatmentsDropdown] =
+    useState(false);
 
-  const handleTreatmentsHover = () => {
+  useEffect(() => {
+    if (!isMouseOverTreatmentsMenu && !isMouseOverTreatmentsDropdown) {
+      setShowTreatmentsDropdown(false);
+    }
+  }, [isMouseOverTreatmentsMenu, isMouseOverTreatmentsDropdown]);
+
+  const handleTreatmentsMenuEnter = () => {
     setShowTreatmentsDropdown(true);
+    setIsMouseOverTreatmentsMenu(true);
   };
 
-  const handleFacilitiesHover = () => {
+  const handleTreatmentsMenuLeave = () => {
+    setIsMouseOverTreatmentsMenu(false);
+  };
+
+  const handleTreatmentsDropdownEnter = () => {
+    setIsMouseOverTreatmentsDropdown(true);
+  };
+
+  const handleTreatmentsDropdownLeave = () => {
+    setIsMouseOverTreatmentsDropdown(false);
+  };
+
+  // States and handlers for Facilities Dropdown
+  const [showFacilitiesDropdown, setShowFacilitiesDropdown] = useState(false);
+  const [isMouseOverFacilitiesMenu, setIsMouseOverFacilitiesMenu] =
+    useState(false);
+  const [isMouseOverFacilitiesDropdown, setIsMouseOverFacilitiesDropdown] =
+    useState(false);
+
+  useEffect(() => {
+    if (!isMouseOverFacilitiesMenu && !isMouseOverFacilitiesDropdown) {
+      setShowFacilitiesDropdown(false);
+    }
+  }, [isMouseOverFacilitiesMenu, isMouseOverFacilitiesDropdown]);
+
+  const handleFacilitiesMenuEnter = () => {
     setShowFacilitiesDropdown(true);
+    setIsMouseOverFacilitiesMenu(true);
   };
 
-  const handleCloseDropdown = () => {
-    setShowTreatmentsDropdown(false);
-    setShowFacilitiesDropdown(false);
+  const handleFacilitiesMenuLeave = () => {
+    setIsMouseOverFacilitiesMenu(false);
+  };
+
+  const handleFacilitiesDropdownEnter = () => {
+    setIsMouseOverFacilitiesDropdown(true);
+  };
+
+  const handleFacilitiesDropdownLeave = () => {
+    setIsMouseOverFacilitiesDropdown(false);
   };
 
   const treatmentSubMenu = {
@@ -68,11 +111,9 @@ const Header = () => {
     <header className='header flex items-center'>
       <div className='container'>
         <div className='flex items-center justify-between m-4 px-10'>
-          {/*.....logo........*/}
           <div>
-            <img src={logo} alt='Perfect heal' />
+            <img src={logo} alt='Perfect Heal' />
           </div>
-          {/*.....Navigabar........*/}
           <div className='navigation'>
             <ul className='menu flex items-center gap-[2.7rem]'>
               {navLinks.map((link, index) => (
@@ -80,9 +121,14 @@ const Header = () => {
                   key={index}
                   className='relative'
                   onMouseEnter={() => {
-                    if (link.path === '/treatment') handleTreatmentsHover();
-                    else if (link.path === '/facilities')
-                      handleFacilitiesHover();
+                    if (link.path === '/treatment') handleTreatmentsMenuEnter();
+                    if (link.path === '/facilities')
+                      handleFacilitiesMenuEnter();
+                  }}
+                  onMouseLeave={() => {
+                    if (link.path === '/treatment') handleTreatmentsMenuLeave();
+                    if (link.path === '/facilities')
+                      handleFacilitiesMenuLeave();
                   }}
                 >
                   <NavLink
@@ -96,76 +142,68 @@ const Header = () => {
                     {link.display}
                   </NavLink>
 
-                  {/* Treatments Dropdown*/}
                   {link.path === '/treatment' && showTreatmentsDropdown && (
-                    <div className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'>
-                      <ul
-                        className='py-4 px-4'
-                        onMouseLeave={handleCloseDropdown}
-                      >
-                        <span className='text-left text-orange-500 text-[16px] leading-7 font-[600]'>
-                          Orthopaedics and Sports Injuries
-                        </span>
-                        <li className='dropdown'>
-                          <div className='dropdown-content flex m-1 py-4 arangment w-[72rem] grid grid-cols-4 gap-6'>
-                            {treatmentSubMenu[
-                              'Orthopaedics and Sports Injuries'
-                            ].map((item) => (
-                              <a
-                                className='border-b'
-                                key={item.path}
-                                href={item.path}
-                              >
-                                {item.name + ' '}
-                              </a>
-                            ))}
-                          </div>
-                          <span className='text-left text-orange-500 text-[16px] leading-7 font-[600] py-2'>
-                            Internal Medicine
-                          </span>
-                          <div className='dropdown-content flex m-1 py-4 arangment w-[72rem] grid grid-cols-4 gap-6 border-b'>
-                            {treatmentSubMenu['Internal Medicine'].map(
-                              (item) => (
+                    <div
+                      className='absolute w-full md:w-auto top-10 left-0 z-20 bg-white'
+                      onMouseEnter={handleTreatmentsDropdownEnter}
+                      onMouseLeave={handleTreatmentsDropdownLeave}
+                    >
+                      {Object.entries(treatmentSubMenu).map(
+                        ([category, items]) => (
+                          <div key={category}>
+                            <span className='text-left top-5 text-orange-500 text-[16px] leading-7 font-[600]'>
+                              {category}
+                            </span>
+                            <div className='dropdown-content flex m-1 py-4 arrangement w-[72rem] grid grid-cols-4 gap-6 border-b '>
+                              {items.map((item) => (
                                 <a
                                   className='border-b'
                                   key={item.path}
                                   href={item.path}
                                 >
-                                  {item.name + ' '}
+                                  {item.name}
                                 </a>
-                              )
-                            )}
+                              ))}
+                            </div>
                           </div>
-                        </li>
-                      </ul>
+                        )
+                      )}
                     </div>
                   )}
+
                   {/* Facilities Dropdown */}
                   {link.path === '/facilities' && showFacilitiesDropdown && (
-                    <ul
-                      className='absolute top-3 left-0 w-10rem mt-2 dropdown-content'
-                      onMouseLeave={handleCloseDropdown}
+                    <div
+                      className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'
+                      onMouseEnter={handleFacilitiesDropdownEnter}
+                      onMouseLeave={handleFacilitiesDropdownLeave}
                     >
-                      <li>
-                        <NavLink to='/facilities/facility1'>Facility 1</NavLink>
-                      </li>
-                      <li>
-                        <NavLink to='/facilities/facility2'>Facility 2</NavLink>
-                      </li>
-                    </ul>
+                      <div className='dropdown-content flex flex-col m-1 py-4 arrangement w-[12rem]'>
+                        <a
+                          href='/facilities/operative-procedures'
+                          className='py-1 block'
+                        >
+                          Operative Procedures
+                        </a>
+                        <a
+                          href='/facilities/patient-services'
+                          className='py-1 block'
+                        >
+                          Our Patient Services
+                        </a>
+                      </div>
+                    </div>
                   )}
                 </li>
               ))}
             </ul>
           </div>
-
-          {/*....nav right......*/}
           <div className='inline-flex'>
             <Link to='/'>
               <figure className='w-[50px] h-[50px] rounded-full'>
                 <img
                   src={phoneimg}
-                  className='rounded-full animate-bounce h-[50px] w-[50px] '
+                  className='rounded-full animate-bounce h-[50px] w-[50px]'
                   alt='Phone number'
                 />
               </figure>

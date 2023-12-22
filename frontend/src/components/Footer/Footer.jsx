@@ -38,7 +38,7 @@ const Footer = () => {
         </div>
         {/*cards*/}
 
-        <div className='grid grid-cols-1 md:grid-cols-3 divide-x divide-black md:divide-x-0 md:mt-10 rounded-lg h-[250px] overflow-hidden shadow-md'>
+        <div className='flex flex-box grid grid-cols-1 md:grid-cols-3 divide-x divide-black md:divide-x-0 md:mt-10 rounded-lg h-[250px] overflow-hidden shadow-md'>
           <div className='bg-white p-14 shadow-md flex flex-col items-center'>
             <img src={mailIcon} className='w-12 h-12' alt='Mail Icon' />
             <h4 className='font-bold text-red-600'>Mail</h4>
