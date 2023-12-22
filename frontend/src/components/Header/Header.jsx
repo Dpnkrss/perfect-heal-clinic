@@ -144,7 +144,7 @@ const Header = () => {
 
                   {link.path === '/treatment' && showTreatmentsDropdown && (
                     <div
-                      className='absolute w-full md:w-auto top-10 left-0 z-20 bg-white'
+                      className='absolute w-full md:w-auto top-8 left-0 z-20 bg-white'
                       onMouseEnter={handleTreatmentsDropdownEnter}
                       onMouseLeave={handleTreatmentsDropdownLeave}
                     >
