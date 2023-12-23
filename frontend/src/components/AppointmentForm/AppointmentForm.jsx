@@ -62,7 +62,12 @@ const AppointmentForm = () => {
   const todayDate = new Date().toISOString().split('T')[0];
   const timeSlots = generateTimeSlots();
   return (
-    <div className=' mx-w-[100%] p-6 bg-[#CF2234]'>
+    <div
+      className=' mx-w-[100%] p-6 bg-[#CF2234]'
+      style={{
+        background: 'linear-gradient(to bottom, #F15A2D, #CF2234)',
+      }}
+    >
       <h3 className='flex justify-center align-middle text-xl mb-2 font-medium text-white'>
         Book an Appointment
       </h3>
