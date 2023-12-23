@@ -17,7 +17,7 @@ const navLinks = [
     display: 'Facilities',
   },
   {
-    path: '/contactus',
+    path: '/contact',
     display: 'Contact us',
   },
 ];
