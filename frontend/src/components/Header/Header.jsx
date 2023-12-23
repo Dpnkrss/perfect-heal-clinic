@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import logo from "../../assets/logo/Perfect-Heal-Ortho-General-Clinic_Logo-01-e1672666778585-300x99.png";
 import phoneimg from "../../assets/phone_calling.gif";
 import { NavLink, Link, useNavigate } from "react-router-dom";
@@ -24,7 +24,7 @@ const navLinks = [
 const Header = () => {
   // State to track the visibility of dropdowns
   const [showTreatmentsDropdown, setShowTreatmentsDropdown] = useState(false);
-  const [showFacilitiesDropdown, setShowFacilitiesDropdown] = useState(false);
+
   const navigate = useNavigate();
   const [isMouseOverTreatmentsMenu, setIsMouseOverTreatmentsMenu] =
     useState(false);
@@ -36,7 +36,6 @@ const Header = () => {
       setShowTreatmentsDropdown(false);
     }
   }, [isMouseOverTreatmentsMenu, isMouseOverTreatmentsDropdown]);
-
 
   const handleTreatmentsMenuEnter = () => {
     setShowTreatmentsDropdown(true);
@@ -113,31 +112,27 @@ const Header = () => {
     navigate("/login");
   };
   return (
-
-    <header className='header flex items-center'>
-      <div className='container'>
-        <div className='flex items-center justify-between m-4 px-10'>
+    <header className="header flex items-center">
+      <div className="container">
+        <div className="flex items-center justify-between m-4 px-10">
           <div>
-            <img src={logo} alt='Perfect Heal' />
+            <img src={logo} alt="Perfect Heal" />
           </div>
-          <div className='navigation'>
-            <ul className='menu flex items-center gap-[2.7rem]'>
-
+          <div className="navigation">
+            <ul className="menu flex items-center gap-[2.7rem]">
               {navLinks.map((link, index) => (
                 <li
                   key={index}
                   className="relative"
                   onMouseEnter={() => {
-
-                    if (link.path === '/treatment') handleTreatmentsMenuEnter();
-                    if (link.path === '/facilities')
+                    if (link.path === "/treatment") handleTreatmentsMenuEnter();
+                    if (link.path === "/facilities")
                       handleFacilitiesMenuEnter();
                   }}
                   onMouseLeave={() => {
-                    if (link.path === '/treatment') handleTreatmentsMenuLeave();
-                    if (link.path === '/facilities')
+                    if (link.path === "/treatment") handleTreatmentsMenuLeave();
+                    if (link.path === "/facilities")
                       handleFacilitiesMenuLeave();
-
                   }}
                 >
                   <NavLink
@@ -150,33 +145,27 @@ const Header = () => {
                   >
                     {link.display}
                   </NavLink>
-
-
                   {/* Treatments Dropdown*/}
-
-                  {link.path === '/treatment' && showTreatmentsDropdown && (
+                  {link.path === "/treatment" && showTreatmentsDropdown && (
                     <div
-                      className='absolute w-full md:w-auto top-8 left-0 z-20 bg-white'
+                      className="absolute w-full md:w-auto top-8 left-0 z-20 bg-white"
                       onMouseEnter={handleTreatmentsDropdownEnter}
                       onMouseLeave={handleTreatmentsDropdownLeave}
                     >
                       {Object.entries(treatmentSubMenu).map(
                         ([category, items]) => (
                           <div key={category}>
-                            <span className='text-left top-5 text-orange-500 text-[16px] leading-7 font-[600]'>
+                            <span className="text-left top-5 text-orange-500 text-[16px] leading-7 font-[600]">
                               {category}
                             </span>
-                            <div className='dropdown-content flex m-1 py-4 arrangement w-[72rem] grid grid-cols-4 gap-6 border-b '>
+                            <div className="dropdown-content flex m-1 py-4 arrangement w-[72rem] grid grid-cols-4 gap-6 border-b ">
                               {items.map((item) => (
-
                                 <a
                                   className="border-b"
                                   key={item.path}
                                   href={item.path}
                                 >
-
                                   {item.name}
-
                                 </a>
                               ))}
                             </div>
@@ -185,47 +174,42 @@ const Header = () => {
                       )}
                     </div>
                   )}
-
                   {/* Facilities Dropdown */}
 
-=======
-                  {link.path === '/facilities' && showFacilitiesDropdown && (
+                  {link.path === "/facilities" && showFacilitiesDropdown && (
                     <div
-                      className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'
+                      className="absolute w-full md:w-auto top-5 left-0 z-20 bg-white"
                       onMouseEnter={handleFacilitiesDropdownEnter}
                       onMouseLeave={handleFacilitiesDropdownLeave}
                     >
-                      <div className='dropdown-content flex flex-col m-1 py-4 arrangement w-[12rem]'>
+                      <div className="dropdown-content flex flex-col m-1 py-4 arrangement w-[12rem]">
                         <a
-                          href='/facilities/operative-procedures'
-                          className='py-1 block'
+                          href="/facilities/operative-procedures"
+                          className="py-1 block"
                         >
                           Operative Procedures
                         </a>
                         <a
-                          href='/facilities/patient-services'
-                          className='py-1 block'
+                          href="/facilities/patient-services"
+                          className="py-1 block"
                         >
                           Our Patient Services
                         </a>
                       </div>
                     </div>
-
                   )}
                 </li>
               ))}
             </ul>
           </div>
 
-
-          <div className='inline-flex'>
-            <Link to='/'>
-              <figure className='w-[50px] h-[50px] rounded-full'>
+          <div className="inline-flex">
+            <Link to="/">
+              <figure className="w-[50px] h-[50px] rounded-full">
                 <img
                   src={phoneimg}
-                  className='rounded-full animate-bounce h-[50px] w-[50px]'
-                  alt='Phone number'
-
+                  className="rounded-full animate-bounce h-[50px] w-[50px]"
+                  alt="Phone number"
                 />
               </figure>
             </Link>
