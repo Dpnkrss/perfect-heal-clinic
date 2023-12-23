@@ -76,12 +76,12 @@ const Login = () => {
 
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a Doctor?{" "}
-            <a
-              href="#"
+            <Link
+              to="/register"
               className="font-semibold leading-6 text-red-600 hover:text-red-500"
             >
-              <Link to="/register">Register</Link>
-            </a>
+              Register
+            </Link>
           </p>
         </div>
       </div>
