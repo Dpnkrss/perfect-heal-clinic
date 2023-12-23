@@ -1,8 +1,7 @@
-import { useEffect, useRef } from 'react';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../../assets/logo/Perfect-Heal-Ortho-General-Clinic_Logo-01-e1672666778585-300x99.png';
 import phoneimg from '../../assets/phone_calling.gif';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 const navLinks = [
   {
@@ -25,6 +24,8 @@ const navLinks = [
 const Header = () => {
   // State to track the visibility of dropdowns
   const [showTreatmentsDropdown, setShowTreatmentsDropdown] = useState(false);
+
+  const navigate = useNavigate();
   const [isMouseOverTreatmentsMenu, setIsMouseOverTreatmentsMenu] =
     useState(false);
   const [isMouseOverTreatmentsDropdown, setIsMouseOverTreatmentsDropdown] =
@@ -107,6 +108,9 @@ const Header = () => {
     ],
   };
 
+  const handleClick = () => {
+    navigate('/login');
+  };
   return (
     <header className='header flex items-center'>
       <div className='container'>
@@ -141,10 +145,10 @@ const Header = () => {
                   >
                     {link.display}
                   </NavLink>
-
+                  {/* Treatments Dropdown*/}
                   {link.path === '/treatment' && showTreatmentsDropdown && (
                     <div
-                      className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'
+                      className='absolute w-full md:w-auto top-8 left-0 z-20 bg-white'
                       onMouseEnter={handleTreatmentsDropdownEnter}
                       onMouseLeave={handleTreatmentsDropdownLeave}
                     >
@@ -170,8 +174,8 @@ const Header = () => {
                       )}
                     </div>
                   )}
-
                   {/* Facilities Dropdown */}
+
                   {link.path === '/facilities' && showFacilitiesDropdown && (
                     <div
                       className='absolute w-full md:w-auto top-5 left-0 z-20 bg-white'
@@ -198,6 +202,7 @@ const Header = () => {
               ))}
             </ul>
           </div>
+
           <div className='inline-flex'>
             <Link to='/'>
               <figure className='w-[50px] h-[50px] rounded-full'>
@@ -213,6 +218,15 @@ const Header = () => {
                 80541 02361
               </span>
             </Link>
+          </div>
+          <div className='py-3'>
+            <button
+              type='button'
+              className='inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
+              onClick={handleClick}
+            >
+              Login
+            </button>
           </div>
         </div>
       </div>
