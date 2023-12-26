@@ -1,14 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     password: "",
   });
-  const getFormData = (e) => {
+  const getFormData = async (e) => {
     e.preventDefault();
-    console.log("Form Data : ", formData);
+    try {
+      const res = await axios.post("/api/v1/doctor/register", formData);
+      console.log(res);
+      if (res.data.success) {
+        toast.success("Registered Successfully");
+        navigate("/login");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
   };
   const handleChange = (e) => {
     setFormData({
