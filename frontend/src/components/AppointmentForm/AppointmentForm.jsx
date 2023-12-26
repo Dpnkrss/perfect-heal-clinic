@@ -90,7 +90,7 @@ const AppointmentForm = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-[24rem] px-3 py-2 border rounded-md"
                 required
               />
             </div>
@@ -108,7 +108,7 @@ const AppointmentForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-[24rem] px-3 py-2 border rounded-md"
               />
             </div>
           </div>
@@ -127,7 +127,7 @@ const AppointmentForm = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-[24rem] px-3 py-2 border rounded-md"
               />
             </div>
             <div className="w-1/2">
@@ -143,7 +143,7 @@ const AppointmentForm = () => {
                 value={formData.specialities}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md h-11"
+                className="w-[24rem] px-3 py-2 border rounded-md h-11"
               >
                 {specialtiesOptions.map((option) => (
                   <option key={option.label} value={option.value}>
@@ -167,7 +167,7 @@ const AppointmentForm = () => {
                 value={formData.appointmentTime}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-4 border rounded-md h-11"
+                className="w-[24rem] px-3 py-4 border rounded-md h-11"
               >
                 <option value="" disabled>
                   Select an Appointment time
@@ -194,7 +194,7 @@ const AppointmentForm = () => {
                 min={todayDate}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border rounded-md"
+                className="w-[24rem] px-3 py-2 border rounded-md"
               />
             </div>
           </div>

@@ -8,6 +8,7 @@ import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
 import SportInjuries from "../pages/SportInjuries";
 import InternalMedicine from "../pages/InternalMedicine";
+
 const Routers = () => {
   return (
     <Routes>
