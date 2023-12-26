@@ -31,7 +31,10 @@ const Footer = () => {
               Services
             </a>{' '}
             |
-            <a href='/contact' className='text-white hover:text-gray-200'>
+            <a
+              href='../../pages/Contact.jsx'
+              className='text-white hover:text-gray-200'
+            >
               Contact us
             </a>
           </nav>
