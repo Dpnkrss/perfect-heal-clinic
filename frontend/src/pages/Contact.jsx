@@ -5,7 +5,7 @@ import Mapgeo from '../components/MapComponent/Mapgeo';
 
 const Contact = () => {
   const center = [31.309039, 75.573076]; // latitude and longitude for Perfect heal
-  const zoom = 20;
+  const zoom = 16;
   return (
     <div className='p-0'>
       <div
