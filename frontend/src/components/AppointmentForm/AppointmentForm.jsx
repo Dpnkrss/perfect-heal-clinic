@@ -57,8 +57,6 @@ const AppointmentForm = () => {
     console.log(formData);
   };
 
-  console.log("component run");
-
   const todayDate = new Date().toISOString().split("T")[0];
   const timeSlots = generateTimeSlots();
   return (
@@ -167,7 +165,7 @@ const AppointmentForm = () => {
                 value={formData.appointmentTime}
                 onChange={handleChange}
                 required
-                className="w-[24rem] px-3 py-4 border rounded-md h-11"
+                className="w-[24rem] px-3 py-2 border rounded-md h-11"
               >
                 <option value="" disabled>
                   Select an Appointment time
