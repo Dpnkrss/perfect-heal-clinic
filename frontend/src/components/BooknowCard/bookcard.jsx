@@ -1,5 +1,7 @@
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import axios from 'axios';
+import toast from 'react-hot-toast';
 const generateTimeSlots = () => {
   const slots = [];
   const startTime = 9 * 60;
@@ -18,6 +20,7 @@ const generateTimeSlots = () => {
   return slots;
 };
 const BookNow = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -58,6 +61,24 @@ const BookNow = () => {
 
   const todayDate = new Date().toISOString().split('T')[0];
   const timeSlots = generateTimeSlots();
+
+  const getFormData = async (e) => {
+    try {
+      const res = await axios.post('/api/v1/user/appointment', formData);
+      console.log(res);
+      if (res.data.success) {
+        toast.success('Registered Successfully');
+
+        navigate('/home');
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error('Something went wrong');
+    }
+  };
+
   return (
     <div
       className='w-[500px] mx-auto p-6 bg-red-600 rounded-lg overflow-hidden shadow-xl h-[500px]  z-10 border border-gray-300'
@@ -65,7 +86,7 @@ const BookNow = () => {
         background: 'linear-gradient(to bottom, #F15A2D, #CF2234)',
       }}
     >
-      <form onSubmit={handleSubmit} className='flex flex-col space-y-4'>
+      <form onSubmit={getFormData} className='flex flex-col space-y-4'>
         <h3 className='text-xl mb-4 font-medium text-white text-center'>
           Book an Appointment
         </h3>
