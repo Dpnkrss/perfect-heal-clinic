@@ -50,5 +50,30 @@ const registerController = async (req, res) => {
     });
   }
 };
-
-module.exports = { loginController, registerController };
+const authController = async (req, res) => {
+  try {
+    const doctor = await docModel.findOne({ _id: req.body.docId });
+    if (!doctor) {
+      return res.status(200).send({
+        message: "Doctor not found",
+        success: false,
+      });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: {
+          name: doctor.name,
+          email: doctor.email,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      message: "Auth Error",
+      success: false,
+      error,
+    });
+  }
+};
+module.exports = { loginController, registerController, authController };
