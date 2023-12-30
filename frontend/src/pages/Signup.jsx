@@ -2,9 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { showLoading, hideLoading } from "../redux/features/alertSlice";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -13,8 +16,9 @@ const Signup = () => {
   const getFormData = async (e) => {
     e.preventDefault();
     try {
+      dispatch(showLoading());
       const res = await axios.post("/api/v1/doctor/register", formData);
-      console.log(res);
+      dispatch(hideLoading());
       if (res.data.success) {
         toast.success("Registered Successfully");
         navigate("/login");
@@ -22,6 +26,7 @@ const Signup = () => {
         toast.error(res.data.message);
       }
     } catch (error) {
+      dispatch(hideLoading());
       console.log(error);
       toast.error("Something went wrong");
     }
