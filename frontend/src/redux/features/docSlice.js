@@ -6,9 +6,9 @@ export const docSlice = createSlice({
     doctor: null,
   },
   reducers: {
-    getDoctor: (state, action) => {
+    setDoctor: (state, action) => {
       state.doctor = action.payload;
     },
   },
 });
-export const { getDoctor } = docSlice.actions;
+export const { setDoctor } = docSlice.actions;
