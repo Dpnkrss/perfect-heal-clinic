@@ -8,11 +8,8 @@ import Doctors from "../pages/Doctors/Doctors";
 import DoctorDetails from "../pages/Doctors/DoctorDetails";
 import SportInjuries from "../pages/SportInjuries";
 import InternalMedicine from "../pages/InternalMedicine";
-<<<<<<< HEAD
-=======
 import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
->>>>>>> v-branch
 import { useSelector } from "react-redux";
 import Spinner from "../components/Spinners/Spinner";
 import Welcome from "../components/Welcome/Welcome";
@@ -25,15 +22,6 @@ const Routers = () => {
         <Spinner />
       ) : (
         <Routes>
-<<<<<<< HEAD
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Signup />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/welcome" element={<Welcome />} />
-=======
           <Route
             path="/"
             element={
@@ -76,7 +64,6 @@ const Routers = () => {
               </ProtectedRoute>
             }
           />
->>>>>>> v-branch
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/doctor-details" element={<DoctorDetails />} />
           <Route

@@ -6,11 +6,12 @@ const Sidebar = () => {
       <ul>
         {SidebarMenu.map((menu) => {
           return (
-            <>
-              <div className="pl-6 mb-7  text-3xl font-bold hover:underline">
-                <Link to={menu.path}>{menu.name}</Link>
-              </div>
-            </>
+            <div
+              key={menu.name}
+              className="pl-6 mb-7  text-3xl font-bold hover:underline"
+            >
+              <Link to={menu.path}>{menu.name}</Link>
+            </div>
           );
         })}
       </ul>
