@@ -1,4 +1,4 @@
-export const SidebarMenu = [
+export const DoctorMenu = [
   {
     name: "Home",
     path: "/",
@@ -8,8 +8,30 @@ export const SidebarMenu = [
     path: "/appointments",
   },
   {
-    name: "Approve Doc",
-    path: "/approve",
+    name: "My Timings",
+    path: "/timings",
+  },
+  {
+    name: "Profile",
+    path: "/doctor-details",
+  },
+  {
+    name: "Logout",
+    path: "/logout",
+  },
+];
+export const AdminMenu = [
+  {
+    name: "Home",
+    path: "/",
+  },
+  {
+    name: "Doctors",
+    path: "/doctors",
+  },
+  {
+    name: "Doctor Details",
+    path: "/doctor-details",
   },
   {
     name: "Profile",
