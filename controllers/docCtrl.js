@@ -52,7 +52,8 @@ const registerController = async (req, res) => {
 };
 const authController = async (req, res) => {
   try {
-    const doctor = await docModel.findOne({ _id: req.body.docId });
+    const doctor = await docModel.findById({ _id: req.body.docId });
+    doctor.password = undefined;
     if (!doctor) {
       return res.status(200).send({
         message: "Doctor not found",
@@ -61,10 +62,7 @@ const authController = async (req, res) => {
     } else {
       res.status(200).send({
         success: true,
-        data: {
-          name: doctor.fullName,
-          email: doctor.email,
-        },
+        data: doctor,
       });
     }
   } catch (error) {

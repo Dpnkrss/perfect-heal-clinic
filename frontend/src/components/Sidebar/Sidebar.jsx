@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
-import { SidebarMenu } from "../../data/data";
+import { DoctorMenu, AdminMenu } from "../../data/data";
+import { useSelector } from "react-redux";
 const Sidebar = () => {
+  const { doctor } = useSelector((state) => state.doctor);
+  const SidebarMenu = doctor?.isAdmin ? AdminMenu : DoctorMenu;
   return (
     <div className="bg-[#F15A2D] text-white h-screen w-1/5 p-4">
       <ul>

@@ -6,7 +6,7 @@ const Content = () => {
   return (
     <div className="flex-1 p-4">
       <h1 className="text-2xl font-bold mb-4">
-        Hello {doctor?.name.split(" ")[0]}
+        Hello {doctor?.fullName.split(" ")[0]}
       </h1>
       <p>Welcome</p>
     </div>
