@@ -3,6 +3,9 @@ import logo from '../../assets/logo/Perfect-Heal-Ortho-General-Clinic_Logo-01-e1
 import phoneimg from '../../assets/phone_calling.gif';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { setDoctor } from '../../redux/features/docSlice';
+import toast from 'react-hot-toast';
 const navLinks = [
   {
     path: '/home',
@@ -26,6 +29,7 @@ const Header = () => {
   const [showTreatmentsDropdown, setShowTreatmentsDropdown] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isMouseOverTreatmentsMenu, setIsMouseOverTreatmentsMenu] =
     useState(false);
   const [isMouseOverTreatmentsDropdown, setIsMouseOverTreatmentsDropdown] =
@@ -111,6 +115,13 @@ const Header = () => {
   const handleClick = () => {
     navigate('/login');
   };
+  const handleLogout = () => {
+    localStorage.clear();
+    dispatch(setDoctor(null));
+    toast.success('Logout successfully');
+    navigate('/home');
+  };
+  const { doctor } = useSelector((state) => state.doctor);
   return (
     <header className='header flex items-center'>
       <div className='container'>
@@ -219,13 +230,23 @@ const Header = () => {
               </span>
             </Link>
             <div className='px-10'>
-              <button
-                type='button'
-                className='inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
-                onClick={handleClick}
-              >
-                Login
-              </button>
+              {doctor ? (
+                <button
+                  type='button'
+                  className='inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              ) : (
+                <button
+                  type='button'
+                  className='inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600'
+                  onClick={handleClick}
+                >
+                  Login
+                </button>
+              )}
             </div>
           </div>
         </div>

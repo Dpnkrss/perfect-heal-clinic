@@ -8,10 +8,10 @@ const Home = () => {
     "https://perfecthealclinic.com/wp-content/uploads/2023/01/Perfect-Web-Banner_3.jpg",
     "https://perfecthealclinic.com/wp-content/uploads/2023/01/Perfect-Web-Banner_1.jpg",
   ];
-  const getUserData = async () => {
+  const getDocData = async () => {
     try {
       await axios.post(
-        "/api/v1/doctor/getUserData",
+        "/api/v1/doctor/getDocData",
         {},
         {
           headers: {
@@ -24,7 +24,7 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    getUserData();
+    getDocData();
   }, []);
   return (
     <div>

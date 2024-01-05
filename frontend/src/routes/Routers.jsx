@@ -8,11 +8,12 @@ import Doctors from '../pages/Doctors/Doctors';
 import DoctorDetails from '../pages/Doctors/DoctorDetails';
 import SportInjuries from '../pages/SportInjuries';
 import InternalMedicine from '../pages/InternalMedicine';
+import ProtectedRoute from './ProtectedRoutes';
+import PublicRoute from './PublicRoutes';
 import { useSelector } from 'react-redux';
 import Spinner from '../components/Spinners/Spinner';
 import Welcome from '../components/Welcome/Welcome';
 import Appointments from '../pages/Appointments';
-
 const Routers = () => {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -21,21 +22,56 @@ const Routers = () => {
         <Spinner />
       ) : (
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/home' element={<Home />} />
+          <Route
+            path='/'
+            element={
+              <PublicRoute>
+                <Home />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/home'
+            element={
+              <PublicRoute>
+                <Home />
+              </PublicRoute>
+            }
+          />
           <Route path='/services' element={<Services />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Signup />} />
+          <Route
+            path='/login'
+            element={
+              <PublicRoute>
+                <Login />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path='/register'
+            element={
+              <PublicRoute>
+                <Signup />
+              </PublicRoute>
+            }
+          />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/welcome' element={<Welcome />} />
+          <Route
+            path='/welcome'
+            element={
+              <ProtectedRoute>
+                <Welcome />
+              </ProtectedRoute>
+            }
+          />
           <Route path='/doctors' element={<Doctors />} />
           <Route path='/doctor-details' element={<DoctorDetails />} />
-          <Route path='/appointments' element={<Appointments />} />
           <Route
             path='/orthopaedics-sports-injuries'
             element={<SportInjuries />}
           />
           <Route path='/internal-medicine' element={<InternalMedicine />} />
+          <Route path='/appointments' element={<Appointments />} />
         </Routes>
       )}
     </>
