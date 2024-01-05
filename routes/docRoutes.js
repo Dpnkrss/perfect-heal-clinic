@@ -3,6 +3,7 @@ const {
   loginController,
   registerController,
   authController,
+  userAppointmentsController,
 } = require('../controllers/docCtrl');
 const authMiddleware = require('../middlewares/authMiddleware');
 //router object
