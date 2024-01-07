@@ -1,19 +1,21 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Services from '../pages/Services';
-import Login from '../pages/Login';
-import Signup from '../pages/Signup';
-import Contact from '../pages/Contact';
-import Doctors from '../pages/Doctors/Doctors';
-import DoctorDetails from '../pages/Doctors/DoctorDetails';
-import SportInjuries from '../pages/SportInjuries';
-import InternalMedicine from '../pages/InternalMedicine';
-import ProtectedRoute from './ProtectedRoutes';
-import PublicRoute from './PublicRoutes';
-import { useSelector } from 'react-redux';
-import Spinner from '../components/Spinners/Spinner';
-import Welcome from '../components/Welcome/Welcome';
-import Appointments from '../pages/Appointments';
+
+import { Routes, Route } from "react-router-dom";
+import Home from "../pages/Home";
+import Services from "../pages/Services";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
+import Contact from "../pages/Contact";
+import Doctors from "../pages/Doctors/Doctors";
+import DoctorDetails from "../pages/Doctors/DoctorDetails";
+import SportInjuries from "../pages/SportInjuries";
+import InternalMedicine from "../pages/InternalMedicine";
+import ProtectedRoute from "./ProtectedRoutes";
+import PublicRoute from "./PublicRoutes";
+import { useSelector } from "react-redux";
+import Spinner from "../components/Spinners/Spinner";
+import Schedule from "../pages/Schedule";
+import Content from "../components/Content/Content";
+
 const Routers = () => {
   const { loading } = useSelector((state) => state.alerts);
   return (
@@ -60,7 +62,7 @@ const Routers = () => {
             path='/welcome'
             element={
               <ProtectedRoute>
-                <Welcome />
+                <Content />
               </ProtectedRoute>
             }
           />
@@ -70,8 +72,19 @@ const Routers = () => {
             path='/orthopaedics-sports-injuries'
             element={<SportInjuries />}
           />
-          <Route path='/internal-medicine' element={<InternalMedicine />} />
+
+          <Route
+            path="/timings"
+            element={
+              <ProtectedRoute>
+                <Schedule />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/internal-medicine" element={<InternalMedicine />} />
+
           <Route path='/appointments' element={<Appointments />} />
+
         </Routes>
       )}
     </>
