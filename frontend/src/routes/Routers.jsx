@@ -12,7 +12,8 @@ import ProtectedRoute from "./ProtectedRoutes";
 import PublicRoute from "./PublicRoutes";
 import { useSelector } from "react-redux";
 import Spinner from "../components/Spinners/Spinner";
-import Welcome from "../components/Welcome/Welcome";
+import Schedule from "../pages/Schedule";
+import Content from "../components/Content/Content";
 
 const Routers = () => {
   const { loading } = useSelector((state) => state.alerts);
@@ -60,7 +61,7 @@ const Routers = () => {
             path="/welcome"
             element={
               <ProtectedRoute>
-                <Welcome />
+                <Content />
               </ProtectedRoute>
             }
           />
@@ -69,6 +70,14 @@ const Routers = () => {
           <Route
             path="/orthopaedics-sports-injuries"
             element={<SportInjuries />}
+          />
+          <Route
+            path="/timings"
+            element={
+              <ProtectedRoute>
+                <Schedule />
+              </ProtectedRoute>
+            }
           />
           <Route path="/internal-medicine" element={<InternalMedicine />} />
         </Routes>
