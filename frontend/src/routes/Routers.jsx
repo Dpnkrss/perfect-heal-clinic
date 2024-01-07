@@ -1,3 +1,4 @@
+
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Services from "../pages/Services";
@@ -24,7 +25,7 @@ const Routers = () => {
       ) : (
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={
               <PublicRoute>
                 <Home />
@@ -32,16 +33,16 @@ const Routers = () => {
             }
           />
           <Route
-            path="/home"
+            path='/home'
             element={
               <PublicRoute>
                 <Home />
               </PublicRoute>
             }
           />
-          <Route path="/services" element={<Services />} />
+          <Route path='/services' element={<Services />} />
           <Route
-            path="/login"
+            path='/login'
             element={
               <PublicRoute>
                 <Login />
@@ -49,28 +50,29 @@ const Routers = () => {
             }
           />
           <Route
-            path="/register"
+            path='/register'
             element={
               <PublicRoute>
                 <Signup />
               </PublicRoute>
             }
           />
-          <Route path="/contact" element={<Contact />} />
+          <Route path='/contact' element={<Contact />} />
           <Route
-            path="/welcome"
+            path='/welcome'
             element={
               <ProtectedRoute>
                 <Content />
               </ProtectedRoute>
             }
           />
-          <Route path="/doctors" element={<Doctors />} />
-          <Route path="/doctor-details" element={<DoctorDetails />} />
+          <Route path='/doctors' element={<Doctors />} />
+          <Route path='/doctor-details' element={<DoctorDetails />} />
           <Route
-            path="/orthopaedics-sports-injuries"
+            path='/orthopaedics-sports-injuries'
             element={<SportInjuries />}
           />
+
           <Route
             path="/timings"
             element={
@@ -80,6 +82,9 @@ const Routers = () => {
             }
           />
           <Route path="/internal-medicine" element={<InternalMedicine />} />
+
+          <Route path='/appointments' element={<Appointments />} />
+
         </Routes>
       )}
     </>

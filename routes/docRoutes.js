@@ -1,17 +1,23 @@
-const express = require("express");
+const express = require('express');
 const {
   loginController,
   registerController,
   authController,
-} = require("../controllers/docCtrl");
-const authMiddleware = require("../middlewares/authMiddleware");
+  userAppointmentsController,
+} = require('../controllers/docCtrl');
+const authMiddleware = require('../middlewares/authMiddleware');
 //router object
 const router = express.Router();
 
 //LOGIN
-router.post("/login", loginController);
+router.post('/login', loginController);
 //REGISTER
-router.post("/register", registerController);
+router.post('/register', registerController);
 //AUTH
-router.post("/getDocData", authMiddleware, authController);
+router.post('/getUserData', authMiddleware, authController);
+
+// Appointments List
+router.get('/user-appointments', authMiddleware, userAppointmentsController);
+
+router.post('/getDocData', authMiddleware, authController);
 module.exports = router;
