@@ -1,23 +1,55 @@
 import Welcome from "../components/Welcome/Welcome";
-import { useSelector } from "react-redux";
 import { useState } from "react";
 import TimePicker from "react-time-picker";
+import "react-time-picker/dist/TimePicker.css";
+import "react-clock/dist/Clock.css";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
+import axios from "axios";
 
 const Schedule = () => {
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
   const [startTime, setStartTime] = useState("10:00");
-  const [endTime, setEndTime] = useState("");
+  const [endTime, setEndTime] = useState("18:00");
 
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-
-  const handleSubmit = (e) => {
+  const { doctor } = useSelector((state) => state.doctor);
+  const doctorName = doctor?.fullName;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(doctor);
+    try {
+      dispatch(showLoading());
+      const res = await axios.post(
+        "/api/v1/doctor/my-schedule",
+        { doctorName, startDay, endDay, startTime, endTime },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (res.data.success) {
+        toast.success(res.data.message);
+        navigate("/welcome");
+      } else {
+        toast.error(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
 
     // Add your logic to handle the form submission here
     console.log("Form submitted:", { startDay, endDay, startTime, endTime });
   };
-  const { doctor } = useSelector((state) => state.doctor);
+
   return (
     <Welcome>
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
@@ -36,7 +68,7 @@ const Schedule = () => {
             </label>
             <select
               id="startDay"
-              className="w-full p-2 border border-gray-300 rounded"
+              className="w-full p-2 border border-gray-300"
               value={startDay}
               onChange={(e) => setStartDay(e.target.value)}
             >
@@ -83,8 +115,9 @@ const Schedule = () => {
             <TimePicker
               id="startTime"
               placeholder="Enter start time"
-              className="w-full p-2 border border-gray-300"
+              className="w-full p-2 border border-gray-300 rounded"
               value={startTime}
+              secondHandLength={0}
               minDetail="hour"
               maxDetail="hour"
               onChange={(val) => setStartTime(val)}
@@ -97,13 +130,16 @@ const Schedule = () => {
             >
               End Time
             </label>
-            <input
-              type="text"
+            <TimePicker
+              name="hour12"
               id="endTime"
-              className="w-full p-2 border border-gray-300 rounded"
               placeholder="Enter end time"
+              className="w-full p-2 border border-gray-300 rounded"
+              secondHandLength={0}
               value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
+              minDetail="hour"
+              maxDetail="hour"
+              onChange={(val) => setEndTime(val)}
             />
           </div>
           <button
