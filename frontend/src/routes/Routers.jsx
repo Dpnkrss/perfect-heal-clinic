@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 import Spinner from "../components/Spinners/Spinner";
 import Schedule from "../pages/Schedule";
 import Content from "../components/Content/Content";
+import Appointments from "../pages/Appointments";
 
 const Routers = () => {
   const { loading } = useSelector((state) => state.alerts);
@@ -71,6 +72,7 @@ const Routers = () => {
             path="/orthopaedics-sports-injuries"
             element={<SportInjuries />}
           />
+
           <Route
             path="/timings"
             element={
@@ -80,6 +82,8 @@ const Routers = () => {
             }
           />
           <Route path="/internal-medicine" element={<InternalMedicine />} />
+
+          <Route path="/appointments" element={<Appointments />} />
         </Routes>
       )}
     </>

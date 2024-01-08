@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import logo from "../../assets/logo/Perfect-Heal-Ortho-General-Clinic_Logo-01-e1672666778585-300x99.png";
 import phoneimg from "../../assets/phone_calling.gif";
 import { NavLink, Link, useNavigate } from "react-router-dom";
+
 import { useSelector, useDispatch } from "react-redux";
 import { setDoctor } from "../../redux/features/docSlice";
 import toast from "react-hot-toast";
@@ -124,9 +125,9 @@ const Header = () => {
   return (
     <header className="header flex items-center">
       <div className="container">
-        <div className="flex items-center justify-between m-0 px-5 h-[8rem] w-[90rem]">
+        <div className="flex items-center justify-between m-0 px-5 h-[6rem] w-[90rem]">
           <div>
-            <img src={logo} className="h-[4rem]" alt="Perfect Heal" />
+            <img src={logo} className="h-[7rem]" alt="Perfect Heal" />
           </div>
           <div className="navigation">
             <ul className="menu flex items-center gap-[2.7rem] ">

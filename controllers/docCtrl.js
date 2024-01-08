@@ -2,6 +2,7 @@ const docModel = require("../models/docModels");
 const scheduleModel = require("../models/scheduleModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const appointmentModel = require("../models/appointmentModel");
 //login
 const loginController = async (req, res) => {
   try {
@@ -98,9 +99,29 @@ const scheduleController = async (req, res) => {
     });
   }
 };
+const userAppointmentsController = async (req, res) => {
+  try {
+    const appointments = await appointmentModel.find({
+      userid: req.body.userid,
+    });
+    res.status(200).send({
+      success: true,
+      message: "Users Appointments Fetch Successfully",
+      data: appointments,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In User Appointments",
+    });
+  }
+};
 module.exports = {
   loginController,
   registerController,
   authController,
   scheduleController,
+  userAppointmentsController,
 };

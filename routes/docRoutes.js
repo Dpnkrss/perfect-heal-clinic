@@ -4,8 +4,10 @@ const {
   registerController,
   authController,
   scheduleController,
+  userAppointmentsController,
 } = require("../controllers/docCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
+
 //router object
 const router = express.Router();
 
@@ -17,4 +19,7 @@ router.post("/register", registerController);
 router.post("/getDocData", authMiddleware, authController);
 //Schedule
 router.post("/my-schedule", authMiddleware, scheduleController);
+// Appointments List
+router.get("/user-appointments", authMiddleware, userAppointmentsController);
+
 module.exports = router;
