@@ -1,4 +1,5 @@
 const docModel = require("../models/docModels");
+const scheduleModel = require("../models/scheduleModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 //login
@@ -74,4 +75,32 @@ const authController = async (req, res) => {
     });
   }
 };
-module.exports = { loginController, registerController, authController };
+const scheduleController = async (req, res) => {
+  try {
+    const { doctorName, startDay, endDay, startTime, endTime } = req.body;
+    const schedule = new scheduleModel({
+      doctorName,
+      startDay,
+      endDay,
+      startTime,
+      endTime,
+    });
+    await schedule.save();
+    res
+      .status(201)
+      .send({ message: "Schedule posted Successfully", success: true });
+  } catch (error) {
+    console.log(error);
+    res.status.send({
+      success: false,
+      error,
+      message: "Error while adding schedule",
+    });
+  }
+};
+module.exports = {
+  loginController,
+  registerController,
+  authController,
+  scheduleController,
+};

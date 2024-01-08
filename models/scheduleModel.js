@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const scheduleSchema = new mongoose.Schema({
-  doctor: {
-    type: mongoose.Schema.Types.ObjectId,
+  doctorName: {
+    type: mongoose.Schema.Types.String,
     ref: "Doctor",
     required: true,
   },
