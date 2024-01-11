@@ -14,7 +14,20 @@ export const Appointments = () => {
       });
 
       if (res.data.success) {
-        setAppointments(res.data.data);
+        const sortedAppointments = res.data.data.sort((a, b) => {
+          // Combine the date and time into a single string and then into a Date object
+          const dateTimeA = new Date(
+            `${a.appointmentDate} ${a.appointmentTime}`
+          );
+          const dateTimeB = new Date(
+            `${b.appointmentDate} ${b.appointmentTime}`
+          );
+
+          // Sort in descending order
+          return dateTimeB - dateTimeA;
+        });
+
+        setAppointments(sortedAppointments);
       }
       console.log(appointments);
     } catch (error) {
