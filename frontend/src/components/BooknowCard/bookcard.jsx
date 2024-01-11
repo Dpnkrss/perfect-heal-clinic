@@ -15,11 +15,13 @@ const generateTimeSlots = () => {
     const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
     const formattedMinutes = String(minutes).padStart(2, '0');
     const formattedTime = `${formattedHours}:${formattedMinutes} ${period}`;
-    slots.push(formattedTime);
+    slots.push({ time: formattedTime, available: true });
   }
   return slots;
 };
+
 const BookNow = () => {
+  const [timeSlots, setTimeSlots] = useState(generateTimeSlots());
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
@@ -60,7 +62,6 @@ const BookNow = () => {
   };
 
   const todayDate = new Date().toISOString().split('T')[0];
-  const timeSlots = generateTimeSlots();
 
   const getFormData = async (e) => {
     try {
@@ -68,6 +69,12 @@ const BookNow = () => {
       console.log(res);
       if (res.data.success) {
         toast.success('Registered Successfully');
+        const updatedSlots = timeSlots.map((slot) =>
+          slot.time === formData.appointmentTime
+            ? { ...slot, available: false }
+            : slot
+        );
+        setTimeSlots(updatedSlots);
 
         navigate('/home');
       } else {
@@ -166,11 +173,13 @@ const BookNow = () => {
           className='w-full px-4 py-2 border border-red-300 rounded-md text-gray-700 focus:outline-none focus:border-red-500'
         >
           <option value=''>Appointment Time</option>
-          {timeSlots.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
+          {timeSlots.map((slot) =>
+            slot.available ? (
+              <option key={slot.time} value={slot.time}>
+                {slot.time}
+              </option>
+            ) : null
+          )}
         </select>
 
         {/* Submit Button */}

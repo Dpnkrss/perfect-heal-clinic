@@ -77,9 +77,7 @@ const authController = async (req, res) => {
 };
 const userAppointmentsController = async (req, res) => {
   try {
-    const appointments = await appointmentModel.find({
-      userid: req.body.userid,
-    });
+    const appointments = await appointmentModel.find({});
     res.status(200).send({
       success: true,
       message: 'Users Appointments Fetch Successfully',
