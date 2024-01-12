@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
+
 const BookNow = () => {
   //const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -47,10 +48,10 @@ const BookNow = () => {
   const todayDate = new Date().toISOString().split("T")[0];
   const [timeSlots, setTimeSlots] = useState([]);
 
+
   const getFormData = async () => {
     try {
       const res = await axios.post("/api/v1/doc/appointment", formData);
-
       if (res.data.success) {
         toast.success("Appointment booked Successfully");
         const updatedSlots = timeSlots.map((slot) =>
@@ -170,12 +171,14 @@ const BookNow = () => {
           required
           className="w-full px-4 py-2 border border-red-300 rounded-md text-gray-700 focus:outline-none focus:border-red-500"
         >
+
           <option value="">Appointment Time</option>
           {timeSlots?.map((slot) => (
             <option key={slot._id} value={slot.startTime}>
               {slot.startTime + " - " + slot.endTime}
             </option>
           ))}
+
         </select>
 
         {/* Submit Button */}
