@@ -13,7 +13,7 @@ export const DoctorMenu = [
   },
   {
     name: "Profile",
-    path: "/doctor-details",
+    path: "/doctor-detail/profile/:id",
   },
   {
     name: "Logout",
