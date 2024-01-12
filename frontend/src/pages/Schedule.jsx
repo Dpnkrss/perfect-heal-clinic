@@ -12,12 +12,14 @@ import axios from "axios";
 const Schedule = () => {
   const [startDay, setStartDay] = useState("");
   const [endDay, setEndDay] = useState("");
-  const [startTime, setStartTime] = useState("10:00");
-  const [endTime, setEndTime] = useState("18:00");
+  const [startTime, setStartTime] = useState("09:00");
+  const [endTime, setEndTime] = useState("19:00");
 
   const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
   const { doctor } = useSelector((state) => state.doctor);
   const doctorName = doctor?.fullName;
+  const docId = doctor?._id;
+  const docSpeciality = doctor?.speciality;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -27,7 +29,15 @@ const Schedule = () => {
       dispatch(showLoading());
       const res = await axios.post(
         "/api/v1/doctor/my-schedule",
-        { doctorName, startDay, endDay, startTime, endTime },
+        {
+          docId,
+          doctorName,
+          docSpeciality,
+          startDay,
+          endDay,
+          startTime,
+          endTime,
+        },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,

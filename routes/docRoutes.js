@@ -5,6 +5,7 @@ const {
   authController,
   scheduleController,
   userAppointmentsController,
+  slotController,
 } = require("../controllers/docCtrl");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -21,5 +22,7 @@ router.post("/getDocData", authMiddleware, authController);
 router.post("/my-schedule", authMiddleware, scheduleController);
 // Appointments List
 router.get("/user-appointments", authMiddleware, userAppointmentsController);
+//get Slots
+router.get("/:docSpeciality", slotController);
 
 module.exports = router;

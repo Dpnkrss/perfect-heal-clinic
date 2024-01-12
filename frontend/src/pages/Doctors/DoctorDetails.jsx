@@ -1,5 +1,13 @@
+import Welcome from "../../components/Welcome/Welcome";
+
 const DoctorDetails = () => {
-  return <div>DoctorDetails</div>;
+  return (
+    <>
+      <Welcome>
+        <h1>Manage Profile</h1>
+      </Welcome>
+    </>
+  );
 };
 
 export default DoctorDetails;

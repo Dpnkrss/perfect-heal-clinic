@@ -13,6 +13,10 @@ const docSchema = new mongoose.Schema({
     type: String,
     required: [true, "Password is required"],
   },
+  speciality: {
+    type: String,
+    required: [true, "Speciality is required"],
+  },
   isAdmin: {
     type: Boolean,
     default: false,
