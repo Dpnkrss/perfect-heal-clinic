@@ -12,6 +12,7 @@ const Signup = () => {
     fullName: "",
     email: "",
     password: "",
+    speciality: "",
   });
   const getFormData = async (e) => {
     e.preventDefault();
@@ -110,6 +111,32 @@ const Signup = () => {
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   onChange={handleChange}
                 />
+              </div>
+            </div>
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="speciality"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Speciality
+                </label>
+              </div>
+              <div className="mt-2">
+                <select
+                  id="speciality"
+                  name="speciality"
+                  type="password"
+                  required
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChange}
+                >
+                  <option value="" disabled>
+                    Select Speciality
+                  </option>
+                  <option value="Internal Medicine">Internal Medicine</option>
+                  <option value="Orthopaedics">Orthopaedics</option>
+                </select>
               </div>
             </div>
 

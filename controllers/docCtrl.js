@@ -1,5 +1,6 @@
 const docModel = require("../models/docModels");
 const scheduleModel = require("../models/scheduleModel");
+const slotModel = require("../models/slotModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const appointmentModel = require("../models/appointmentModel");
@@ -78,18 +79,32 @@ const authController = async (req, res) => {
 };
 const scheduleController = async (req, res) => {
   try {
-    const { doctorName, startDay, endDay, startTime, endTime } = req.body;
-    const schedule = new scheduleModel({
+    const {
+      docId,
       doctorName,
+      docSpeciality,
+      startDay,
+      endDay,
+      startTime,
+      endTime,
+    } = req.body;
+    const schedule = new scheduleModel({
+      docId,
+      doctorName,
+      docSpeciality,
       startDay,
       endDay,
       startTime,
       endTime,
     });
     await schedule.save();
-    res
-      .status(201)
-      .send({ message: "Schedule posted Successfully", success: true });
+    const generateSlots = schedule.generateSlots();
+    await slotModel.insertMany(generateSlots);
+    res.status(201).send({
+      schedule,
+      message: "Schedule posted Successfully",
+      success: true,
+    });
   } catch (error) {
     console.log(error);
     res.status.send({
@@ -116,10 +131,29 @@ const userAppointmentsController = async (req, res) => {
     });
   }
 };
+const slotController = async (req, res) => {
+  const { docSpeciality } = req.params;
+  try {
+    const slots = await slotModel.find({ docSpeciality });
+    res.status(200).send({
+      success: true,
+      message: "Slots Fetched",
+      data: slots,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      error,
+      message: "Error In User Appointments",
+    });
+  }
+};
 module.exports = {
   loginController,
   registerController,
   authController,
   scheduleController,
   userAppointmentsController,
+  slotController,
 };

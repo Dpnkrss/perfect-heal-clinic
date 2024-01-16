@@ -67,7 +67,10 @@ const Routers = () => {
             }
           />
           <Route path="/doctors" element={<Doctors />} />
-          <Route path="/doctor-details" element={<DoctorDetails />} />
+          <Route
+            path="/doctor-detail/profile/:id"
+            element={<DoctorDetails />}
+          />
           <Route
             path="/orthopaedics-sports-injuries"
             element={<SportInjuries />}
