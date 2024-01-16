@@ -65,7 +65,7 @@ const AppointmentForm = () => {
 
   const getFormData = async (e) => {
     try {
-      const res = await axios.post('/api/v1/user/appointment', formData);
+      const res = await axios.post('/api/v1/doc/appointment', formData);
       console.log(res);
       if (res.data.success) {
         toast.success('Registered Successfully');
