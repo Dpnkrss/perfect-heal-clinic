@@ -23,6 +23,6 @@ router.post("/my-schedule", authMiddleware, scheduleController);
 // Appointments List
 router.get("/user-appointments", authMiddleware, userAppointmentsController);
 //get Slots
-router.get("/:docSpeciality", slotController);
+router.get("/:docSpeciality/:day", slotController);
 
 module.exports = router;
