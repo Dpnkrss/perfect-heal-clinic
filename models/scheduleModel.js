@@ -1,13 +1,18 @@
 const mongoose = require("mongoose");
 
+const workingHoursSchema = new mongoose.Schema({
+  start_time: { type: String, required: true },
+  end_time: { type: String, required: true },
+});
+
 const scheduleSchema = new mongoose.Schema({
-  doctorName: {
-    type: mongoose.Schema.Types.String,
+  docId: {
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Doctor",
     required: true,
   },
-  docId: {
-    type: mongoose.Schema.Types.ObjectId,
+  doctorName: {
+    type: mongoose.Schema.Types.String,
     ref: "Doctor",
     required: true,
   },
@@ -16,68 +21,44 @@ const scheduleSchema = new mongoose.Schema({
     ref: "Doctor",
     required: true,
   },
-  startDay: {
-    type: String,
-    required: true,
-  },
-  endDay: {
-    type: String,
-    required: true,
-  },
-  startTime: {
-    type: String,
-    required: true,
-  },
-  endTime: {
-    type: String,
-    required: true,
-  },
+  weekly_schedule: [
+    {
+      day: { type: String, required: true },
+      working_hours: [workingHoursSchema],
+    },
+  ],
 });
-scheduleSchema.methods.generateSlots = function () {
+scheduleSchema.methods.generateSlotsForWeek = function (slotDuration) {
+  const { docId, doctorName, docSpeciality, weekly_schedule } = this;
   const slots = [];
-  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
-  const {
-    docId,
-    doctorName,
-    docSpeciality,
-    startDay,
-    endDay,
-    startTime,
-    endTime,
-  } = this;
 
-  const startDayIndex = weekdays.indexOf(startDay);
-  const endDayIndex = weekdays.indexOf(endDay);
+  weekly_schedule.forEach((daySchedule) => {
+    const { day, working_hours } = daySchedule;
+    const startTime = new Date(
+      `January 1, 2000 ${working_hours[0].start_time}`
+    );
+    const endTime = new Date(`January 1, 2000 ${working_hours[0].end_time}`);
 
-  for (let i = startDayIndex; i <= endDayIndex; i++) {
-    const currentDay = weekdays[i];
+    let currentSlot = new Date(startTime);
 
-    const [startHour, startMinute] = startTime.split(":").map(Number);
-    const [endHour, endMinute] = endTime.split(":").map(Number);
-
-    const totalMinutes = (endHour - startHour) * 60 + (endMinute - startMinute);
-
-    for (let j = 0; j < totalMinutes; j += 30) {
-      const slotStartTime = new Date(0, 0, 0, startHour, startMinute + j);
-      const slotEndTime = new Date(0, 0, 0, startHour, startMinute + j + 30);
-      const slot = {
+    while (currentSlot < endTime) {
+      const slotEndTime = new Date(
+        currentSlot.getTime() + slotDuration * 60000
+      ); // Convert minutes to milliseconds
+      slots.push({
         docId,
         doctorName,
         docSpeciality,
-        day: currentDay,
-        startTime: slotStartTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-        endTime: slotEndTime.toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        }),
-      };
-      slots.push(slot);
+        day,
+        startTime: currentSlot.toLocaleTimeString([], { timeStyle: "short" }),
+        endTime: slotEndTime.toLocaleTimeString([], { timeStyle: "short" }),
+      });
+      currentSlot = slotEndTime;
     }
-  }
+  });
+
   return slots;
 };
+
 const scheduleModel = mongoose.model("Schedule", scheduleSchema);
 module.exports = scheduleModel;

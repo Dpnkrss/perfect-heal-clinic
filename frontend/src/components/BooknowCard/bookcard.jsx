@@ -4,7 +4,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
-
 const BookNow = () => {
   //const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -28,11 +27,11 @@ const BookNow = () => {
     { value: "44", label: "Internal Medicine - Chronic Cough" },
     { value: "43", label: "Internal Medicine - Fever" },
     { value: "42", label: "Internal Medicine - Urinary Tract Infections" },
-    { value: "41", label: "Orthopaedics - Sports Injuries" },
-    { value: "40", label: "Orthopaedics - Rheumatoid Arthritis" },
-    { value: "39", label: "Orthopaedics - Bone Fractures" },
-    { value: "38", label: "Orthopaedics - Hip & Joint Replacement" },
-    { value: "37", label: "Orthopaedics - Arthroscopy" },
+    { value: "41", label: "Orthopaedics- Sports Injuries" },
+    { value: "40", label: "Orthopaedics- Rheumatoid Arthritis" },
+    { value: "39", label: "Orthopaedics- Bone Fractures" },
+    { value: "38", label: "Orthopaedics- Hip & Joint Replacement" },
+    { value: "37", label: "Orthopaedics- Arthroscopy" },
   ];
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +45,16 @@ const BookNow = () => {
     getFormData();
   };
   const todayDate = new Date().toISOString().split("T")[0];
+  const currentDate = new Date();
+  const daysUntilSaturday = 6 - currentDate.getDay();
+  const maxDate = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    currentDate.getDate() + daysUntilSaturday
+  )
+    .toISOString()
+    .split("T")[0];
   const [timeSlots, setTimeSlots] = useState([]);
-
 
   const getFormData = async () => {
     try {
@@ -72,19 +79,33 @@ const BookNow = () => {
   useEffect(() => {
     const fetchTimeSlots = async () => {
       try {
-        const specialization = formData.specialities.split("-")[0];
-        const res = await axios.get(`/api/v1/doctor/${specialization}`);
+        const docSpeciality = formData.specialities.split("-")[0];
+        console.log(docSpeciality.length);
+        const daysOfWeek = [
+          "Sunday",
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+        ];
+        const appointmentDate = new Date(formData.appointmentDate).getDay();
+        console.log(appointmentDate);
+        const day = daysOfWeek[appointmentDate + 1];
+        const res = await axios.get(`/api/v1/doctor/${docSpeciality}/${day}`);
         toast.success(res.data.message);
+        console.log(res.data.data);
         setTimeSlots(res.data.data);
       } catch (error) {
         console.log(error);
         toast.error("Something went wrong");
       }
     };
-    if (formData.specialities) {
+    if (formData.specialities && formData.appointmentDate) {
       fetchTimeSlots();
     }
-  }, [formData.specialities]);
+  }, [formData.specialities, formData.appointmentDate]);
   return (
     <div
       className="w-[500px] mx-auto p-6 bg-red-600 rounded-lg overflow-hidden shadow-xl h-[500px]  z-10 border border-gray-300"
@@ -157,6 +178,7 @@ const BookNow = () => {
           name="appointmentDate"
           value={formData.appointmentDate}
           min={todayDate}
+          max={maxDate}
           onChange={handleChange}
           required
           className="w-full px-4 py-2 border border-red-300 rounded-md text-gray-700 focus:outline-none focus:border-red-500"
@@ -171,14 +193,12 @@ const BookNow = () => {
           required
           className="w-full px-4 py-2 border border-red-300 rounded-md text-gray-700 focus:outline-none focus:border-red-500"
         >
-
           <option value="">Appointment Time</option>
           {timeSlots?.map((slot) => (
             <option key={slot._id} value={slot.startTime}>
               {slot.startTime + " - " + slot.endTime}
             </option>
           ))}
-
         </select>
 
         {/* Submit Button */}

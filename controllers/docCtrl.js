@@ -79,26 +79,15 @@ const authController = async (req, res) => {
 };
 const scheduleController = async (req, res) => {
   try {
-    const {
-      docId,
-      doctorName,
-      docSpeciality,
-      startDay,
-      endDay,
-      startTime,
-      endTime,
-    } = req.body;
+    const { docId, doctorName, docSpeciality, weekly_schedule } = req.body;
     const schedule = new scheduleModel({
       docId,
       doctorName,
       docSpeciality,
-      startDay,
-      endDay,
-      startTime,
-      endTime,
+      weekly_schedule,
     });
     await schedule.save();
-    const generateSlots = schedule.generateSlots();
+    const generateSlots = schedule.generateSlotsForWeek(30);
     await slotModel.insertMany(generateSlots);
     res.status(201).send({
       schedule,
@@ -107,7 +96,7 @@ const scheduleController = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status.send({
+    res.status(500).send({
       success: false,
       error,
       message: "Error while adding schedule",
@@ -132,9 +121,12 @@ const userAppointmentsController = async (req, res) => {
   }
 };
 const slotController = async (req, res) => {
-  const { docSpeciality } = req.params;
+  const { docSpeciality, day } = req.params;
   try {
-    const slots = await slotModel.find({ docSpeciality });
+    const slots = await slotModel.find({
+      $and: [{ docSpeciality: docSpeciality }, { day: day }],
+    });
+    console.log(req.params);
     res.status(200).send({
       success: true,
       message: "Slots Fetched",
