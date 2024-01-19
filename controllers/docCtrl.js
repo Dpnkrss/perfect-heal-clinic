@@ -126,7 +126,6 @@ const slotController = async (req, res) => {
     const slots = await slotModel.find({
       $and: [{ docSpeciality: docSpeciality }, { day: day }],
     });
-    console.log(req.params);
     res.status(200).send({
       success: true,
       message: "Slots Fetched",
