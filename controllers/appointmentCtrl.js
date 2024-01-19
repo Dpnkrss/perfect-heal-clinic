@@ -1,23 +1,39 @@
-const appointmentModel = require('../models/appointmentModel');
+const appointmentModel = require("../models/appointmentModel");
+const slotModel = require("../models/slotModel");
 const appointmentController = async (req, res) => {
   try {
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
     const newAppointment = new appointmentModel(req.body);
-    await newAppointment.validate(); // Validate the document
+    await newAppointment.validate();
     await newAppointment.save();
-    console.log('in ', newAppointment);
     res.status(200).json({
       success: true,
-      message: 'Appointment created successfully',
+      message: "Appointment created successfully",
       data: newAppointment,
+    });
+    await slotModel.deleteOne({
+      $and: [
+        { startTime: req.body.appointmentTime },
+        { day: daysOfWeek[new Date(req.body.appointmentDate).getDay()] },
+        { docSpeciality: req.body.specialities.split("-")[0] },
+      ],
     });
   } catch (error) {
     console.error(error);
 
-    if (error.name === 'ValidationError') {
+    if (error.name === "ValidationError") {
       // Handle validation errors
       return res.status(400).json({
         success: false,
-        message: 'Validation error',
+        message: "Validation error",
         errors: error.errors,
       });
     }

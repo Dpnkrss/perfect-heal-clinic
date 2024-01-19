@@ -1,11 +1,11 @@
-//import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
 
 const BookNow = () => {
-  //const navigate = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,13 +61,15 @@ const BookNow = () => {
       const res = await axios.post("/api/v1/doc/appointment", formData);
       if (res.data.success) {
         toast.success("Appointment booked Successfully");
-        const updatedSlots = timeSlots.map((slot) =>
-          slot.time === formData.appointmentTime
-            ? { ...slot, available: false }
-            : slot
-        );
-        setTimeSlots(updatedSlots);
-        // navigate("/home");
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          specialities: "",
+          appointmentTime: "",
+          appointmentDate: new Date(),
+        });
+        navigate("/home");
       } else {
         toast.error(res.data.message);
       }
@@ -80,7 +82,6 @@ const BookNow = () => {
     const fetchTimeSlots = async () => {
       try {
         const docSpeciality = formData.specialities.split("-")[0];
-        console.log(docSpeciality.length);
         const daysOfWeek = [
           "Sunday",
           "Monday",
@@ -91,11 +92,9 @@ const BookNow = () => {
           "Saturday",
         ];
         const appointmentDate = new Date(formData.appointmentDate).getDay();
-        console.log(appointmentDate);
         const day = daysOfWeek[appointmentDate + 1];
         const res = await axios.get(`/api/v1/doctor/${docSpeciality}/${day}`);
         toast.success(res.data.message);
-        console.log(res.data.data);
         setTimeSlots(res.data.data);
       } catch (error) {
         console.log(error);
